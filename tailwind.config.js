@@ -1,9 +1,13 @@
 module.exports = {
   purge: ['./src/**/*.{js,jsx,ts,tsx}', './public/index.html'],
   darkMode: false, // or 'media' or 'class'
-  important: true,
   theme: {
     extend: {},
+    screens: {
+      '2xl': '1644px',
+      xl: '970px',
+      lg: '680px',
+    },
     colors: {
       blue: {
         primary: '#336399',

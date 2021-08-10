@@ -1,31 +1,56 @@
 import React, { useState } from 'react'
+// import { useSelector } from 'react-redux'
 import { Contract } from '@ethersproject/contracts'
 import { useWeb3React } from '@web3-react/core'
+import { parseUnits } from '@ethersproject/units'
 import Button from '../Button'
 import Card from '../Card'
-import LendingPoolABI from '../../abi/LendingPoolABI.json'
+import LendingPoolABI from '../../abi/LendingPoolABI'
+import ERC20ABI from '../../abi/ERC20.abi.json'
 import { LendingPoolContractAddress, DAITokenAddress } from '../../utils'
 
 export default function Deposit(props) {
-  const { library, account } = useWeb3React()
+  const { library } = useWeb3React()
+  // const address = useSelector((state) => state.account.address)
   const [amount, setAmount] = useState()
+
   const lendingPoolContract = new Contract(
     LendingPoolContractAddress,
     LendingPoolABI,
     library.getSigner()
   )
 
+  const ERC20Contract = new Contract(
+    DAITokenAddress,
+    ERC20ABI,
+    library.getSigner()
+  )
+
   const approve = async () => {
-    await lendingPoolContract.allowance(amount)
+    await ERC20Contract.approve(
+      LendingPoolContractAddress,
+      parseFloat(parseUnits(amount, 0))
+    )
+    ERC20Contract.on('Transfer', (from, to, value, event) => {
+      console.log(from, to, value)
+
+      console.log(event.blockNumber)
+    })
   }
   const deposit = async () => {
-    await lendingPoolContract.deposit(DAITokenAddress, account, amount)
+    await lendingPoolContract.deposit(
+      DAITokenAddress,
+      parseFloat(parseUnits(amount, 0))
+    )
   }
   const onChangeAmount = (e) => {
     setAmount(e.target.value)
   }
   return (
-    <Card title="Deposit DAI into Aave v2" className="mb-4">
+    <Card
+      title="Deposit DAI into Aave v2"
+      className="w-full mb-8 xl:mx-4 xl:w-1/2 2xl:mb-8 2xl:w-full"
+    >
       <div className="flex flex-col">
         <input
           type="number"

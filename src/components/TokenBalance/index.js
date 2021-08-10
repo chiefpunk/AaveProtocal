@@ -44,7 +44,7 @@ export default function TokenBalance(props) {
     return <Card title={props.title} className="w-1/3 mx-8" />
   }
   return (
-    <Card title={props.title} className="w-1/3 mx-8">
+    <Card title={props.title} className="w-full mb-8 lg:mx-8 lg:w-1/3">
       <p className="w-full overflow-hidden text-2xl text-white-100 overflow-ellipsis">
         {parseFloat(formatEther(balance, 18)).toPrecision(4)}
       </p>

@@ -42,7 +42,10 @@ export default function ETHGraph(props) {
   console.log({ data })
 
   return (
-    <Card title="ETH Price Chart" className="w-2/3 mx-8">
+    <Card
+      title="ETH Price Chart"
+      className="order-1 mx-8 mb-12 w-3/3 2xl:w-1/2 2xl:order-2"
+    >
       {fetchingData ? (
         <h1>Loading Graph</h1>
       ) : (

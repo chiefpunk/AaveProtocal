@@ -17,14 +17,14 @@ function App() {
       <Navbar />
       {address && (
         <div className="h-screen p-5 bg-blue-secondary">
-          <div className="flex justify-between mb-12">
+          <div className="flex flex-col justify-between mb-12 lg:flex-row">
             <ConnectedAccount />
             <TokenBalance address={DAITokenAddress} title="DAI Balance" />
             <TokenBalance address={aDAITokenAddress} title="aDAI Balance" />
           </div>
-          <div className="flex">
+          <div className="flex flex-col 2xl:flex-row">
             <ETHGraph />
-            <div className="w-1/3 mx-8">
+            <div className="flex flex-col justify-between order-1 mx-8 xl:flex-row xl:order-2 2xl:w-1/2">
               <Deposit />
               <Withdraw />
             </div>
