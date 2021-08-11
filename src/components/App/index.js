@@ -19,8 +19,8 @@ function App() {
         <div className="h-screen p-5 bg-blue-secondary">
           <div className="flex flex-col justify-between mb-12 lg:flex-row">
             <ConnectedAccount />
-            <TokenBalance address={DAITokenAddress} title="DAI Balance" />
-            <TokenBalance address={aDAITokenAddress} title="aDAI Balance" />
+            <TokenBalance address={DAITokenAddress} token="DAI" />
+            <TokenBalance address={aDAITokenAddress} token="aDAI" />
           </div>
           <div className="flex flex-col 2xl:flex-row">
             <ETHGraph />

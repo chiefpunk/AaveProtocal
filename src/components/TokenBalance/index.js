@@ -1,15 +1,20 @@
 import React, { useEffect } from 'react'
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 import { useWeb3React } from '@web3-react/core'
 import { formatEther } from '@ethersproject/units'
 import { Contract } from '@ethersproject/contracts'
 import useSWR from 'swr'
 import Card from '../Card'
 import { fetcher } from '../../functions'
+import {
+  updateADAITokenBalance,
+  updateDAITokenBalance,
+} from '../../store/account/accountSlice'
 import ERC20ABI from '../../abi/ERC20.abi.json'
 
 export default function TokenBalance(props) {
   const walletAddress = useSelector((state) => state.account.address)
+  const dispatch = useDispatch()
   const { library } = useWeb3React()
   const { data: balance, mutate } = useSWR(
     [props.address, 'balanceOf', walletAddress],
@@ -40,13 +45,34 @@ export default function TokenBalance(props) {
     // trigger the effect only on component mount
   }, [library, mutate, props.address, walletAddress])
 
+  useEffect(() => {
+    if (balance) {
+      if (props.token === 'DAI')
+        dispatch(
+          updateDAITokenBalance(
+            parseFloat(formatEther(balance, 18)).toPrecision(4)
+          )
+        )
+      else
+        dispatch(
+          updateADAITokenBalance(
+            parseFloat(formatEther(balance, 18)).toPrecision(4)
+          )
+        )
+    }
+  }, [balance, props.token, dispatch])
+
   if (!balance) {
     return <Card title={props.title} className="w-1/3 mx-8" />
   }
+
   return (
-    <Card title={props.title} className="w-full mb-8 lg:mx-8 lg:w-1/3">
+    <Card
+      title={`${props.token} Balance`}
+      className="w-full mb-8 lg:mx-8 lg:w-1/3"
+    >
       <p className="w-full overflow-hidden text-2xl text-white-100 overflow-ellipsis">
-        {parseFloat(formatEther(balance, 18)).toPrecision(4)}
+        {parseFloat(formatEther(balance, 18)).toPrecision(4)} {props.token}
       </p>
     </Card>
   )

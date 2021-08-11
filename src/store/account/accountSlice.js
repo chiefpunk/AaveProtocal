@@ -16,6 +16,12 @@ export const accountSlice = createSlice({
       // immutable state based off those changes
       state.address = action.payload
     },
+    updateDAITokenBalance: (state, action) => {
+      state.tokens = { ...state.tokens, DAI: action.payload }
+    },
+    updateADAITokenBalance: (state, action) => {
+      state.tokens = { ...state.tokens, aDAI: action.payload }
+    },
     disconnectWallet: (state, action) => {
       state.address = null
     },
@@ -23,6 +29,11 @@ export const accountSlice = createSlice({
 })
 
 // Action creators are generated for each case reducer function
-export const { updateWalletAddress, disconnectWallet } = accountSlice.actions
+export const {
+  updateWalletAddress,
+  disconnectWallet,
+  updateDAITokenBalance,
+  updateADAITokenBalance,
+} = accountSlice.actions
 
 export default accountSlice.reducer

@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@aave/protocol-v2": "^1.0.1",
     "@craco/craco": "^6.2.0",
     "@ethersproject/address": "^5.4.0",
     "@ethersproject/contracts": "^5.4.1",
