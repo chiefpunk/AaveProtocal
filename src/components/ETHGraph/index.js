@@ -39,8 +39,6 @@ export default function ETHGraph(props) {
     getData()
   }, [])
 
-  console.log({ data })
-
   return (
     <Card
       title="ETH Price Chart"

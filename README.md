@@ -4,7 +4,7 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 # Demo App
 
-Open [https://invoice-tool.netlify.app/](https://invoice-tool.netlify.app/) to see demo
+Open [https://multisafe.netlify.app/](https://multisafe.netlify.app/) to see demo
 
 ## Available Scripts
 

@@ -15,8 +15,6 @@ export default function Navbar(props) {
 
   const walletAddress = useSelector((state) => state.account.address)
 
-  console.log({ account, chainId })
-
   useEffect(() => {
     if (chainId && chainId !== 42) {
       alert('We only use the Kovan Test Network')
